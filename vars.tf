@@ -4,9 +4,8 @@ variable "subnet_ids" {}
 variable "vpc_id" {}
 variable "sg_ingress_cidr" {}
 variable "elasticcache_type" {}
-variable "family" {}
-variable "port" {}
 variable "engine_family" {}
+variable "port" {}
 variable "engine" {}
 variable "node_type" {}
 variable "num_cache_nodes" {}
