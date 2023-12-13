@@ -26,19 +26,17 @@ resource "aws_security_group" "main" {
   }
 
 }
-resource "aws_docdb_cluster_parameter_group" "main" {
-  family      = var.engine_family
-  name        = "${local.name_prefix}-pg"
-  description = "${local.name_prefix}-gg"
-  tags = merge(local.tags, {Name = "${local.name_prefix}-pg" })
-
+resource "aws_elasticache_parameter_group" "main" {
+  name   = "${local.name_prefix}-pg"
+  family = var.engine_family
+  tags   = merge(local.tags, { Name = "${local.name_prefix}-pg" })
 }
 resource "aws_elasticache_cluster" "example" {
   cluster_id           = "${local.name_prefix}-elasticcahe"
   engine               = var.engine
   node_type            = var.node_type
   num_cache_nodes      = var.num_cache_nodes
-  parameter_group_name = aws_docdb_cluster_parameter_group.main.name
+  parameter_group_name = aws_elasticache_parameter_group.main.name
   engine_version       = var.engine_version
   port                 = var.port
   subnet_group_name             = aws_elasticache_subnet_group.main.name
